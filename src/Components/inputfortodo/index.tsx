@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState} from 'react'
 import Styles  from './index.module.scss';
+import {TodoList} from '../todolist/index';
 import { inputtype } from '../../types/inputtype';
+
 export const Todo = () => {
 
     const [dos,setdos]=useState<string>('');
@@ -27,12 +29,10 @@ export const Todo = () => {
       setdeadline(0);
     };
 
-    const deleteTodo = (index: number) => {
-      settodo(todo.filter((_, i) => i !== index));
-    };
   
     
   return (
+   <>
    <div className={Styles.todoapp}>
     <div className={Styles.todocontent}>
        <div className={Styles.todoinput}>
@@ -55,17 +55,13 @@ export const Todo = () => {
        <button onClick={addtodo}>Add</button>
        </div> 
        </div>
-       <div className={Styles.todolist}> 
-        {todo.map((item,index)=>(
-       <div key={index}>
-        <div className={Styles.todoitem} >
-           <div className={Styles.item}>{item.dos}</div>
-           <div>{item.deadline}</div>
-           <button className={Styles.deletebutton } onClick={() => deleteTodo(index)}>Delete</button>
-        </div>
-        </div> 
-        ))}
+       <div className={Styles.listheader} >
+         <div>Tasks</div>
+         <div>Days</div>
+         <div>Cancel</div>
        </div>
+       <TodoList todo={todo} settodo={settodo}/>
    </div>
+   </>
   )
 }
